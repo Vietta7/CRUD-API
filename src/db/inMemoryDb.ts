@@ -3,13 +3,10 @@ import { Product } from '../types/product';
 let products: Product[] = [];
 
 export const db = {
-  getAll: async (): Promise<Product[]> => {
-    return products;
-  },
+  getAll: async (): Promise<Product[]> => products,
 
-  getById: async (id: string): Promise<Product | undefined> => {
-    return products.find((p) => p.id === id);
-  },
+  getById: async (id: string): Promise<Product | undefined> =>
+    products.find((p) => p.id === id),
 
   create: async (product: Product): Promise<Product> => {
     products.push(product);
@@ -28,5 +25,9 @@ export const db = {
     if (index === -1) return false;
     products.splice(index, 1);
     return true;
+  },
+
+  sync: (newProducts: Product[]): void => {
+    products = newProducts;
   },
 };
